@@ -6,28 +6,37 @@ import { useState } from "react/cjs/react.development";
 const ModalEdit = (props) => {
   const original = props.todo;
   const [todo, setTodo] = useState(props.todo);
-  const handleTitleChange = ({ target }) => {
-    setTodo((prev) => ({ ...prev, title: target.value }));
+  const handleChange = ({ target }) => {
+    const value = target.value;
+    setTodo((prev) => ({ ...prev, [target.name]: value }));
   };
-  const handleDescriptionChange = ({ target }) => {
-    setTodo((prev) => ({ ...prev, description: target.value }));
+  const handlePriorityChange = ({ target }) => {
+    const value = priority.indexOf(target.value) + 1;
+    setTodo((prev) => ({ ...prev, ColumnId: value }));
   };
+
+  const priority = ["To do", "In progress", "Testing", "Done"];
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.setTodo((prev) => ({
-      ...prev,
-      title: todo.title,
-      description: todo.description,
-    }));
+    const updatedTodo = {
+      TodoId: todo.TodoId,
+      TodoTitle: todo.TodoTitle,
+      DueDate: todo.DueDate,
+      TodoDescription: todo.TodoDescription,
+      ColumnId: todo.ColumnId,
+    };
+    props.onChange(updatedTodo);
     props.onHide();
   };
 
   const handleHide = () => {
     setTodo((prev) => ({
       ...prev,
-      title: original.title,
-      description: original.description,
+      TodoTitle: original.TodoTitle,
+      DueDate: original.DueDate,
+      TodoDescription: original.TodoDescription,
+      ColumnId: original.ColumnId,
     }));
     props.onHide();
   };
@@ -40,20 +49,47 @@ const ModalEdit = (props) => {
         </Modal.Header>
         <Modal.Body>
           <>
-            <Form.Label>Title:</Form.Label>
+            <Form.Label htmlFor="title">Title:</Form.Label>
             <Form.Control
-              name="title"
+              id="title"
+              name="TodoTitle"
               type="text"
-              value={todo.title}
-              onChange={handleTitleChange}
+              value={todo.TodoTitle}
+              onChange={handleChange}
             />
-            <Form.Label>Descripion:</Form.Label>
+            <Form.Label htmlFor="description">Descripion:</Form.Label>
             <Form.Control
-              name="description"
+              id="description"
+              name="TodoDescription"
               type="text"
-              value={todo.description}
-              onChange={handleDescriptionChange}
+              value={todo.TodoDescription}
+              onChange={handleChange}
             />
+            <Form.Label htmlFor="due-date">
+              Due date:
+              <Form.Control
+                id="due-date"
+                name="DueDate"
+                type="date"
+                value={todo.DueDate}
+                onChange={handleChange}
+                required={true}
+              />
+            </Form.Label>
+            <Form.Label htmlFor="priority">
+              Priority:
+              <Form.Select
+                id="priority"
+                name="ColumnId"
+                value={priority[todo.ColumnId - 1]}
+                onChange={handlePriorityChange}
+              >
+                <option>To do</option>
+                <option>In progress</option>
+                <option>Testing</option>
+                <option>Done</option>
+              </Form.Select>
+            </Form.Label>
           </>
         </Modal.Body>
         <Modal.Footer>

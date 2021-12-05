@@ -1,12 +1,17 @@
 import { useState } from "react/cjs/react.development";
 import { Card, Button } from "react-bootstrap";
 import { RiDeleteBin6Fill, RiEditFill } from "react-icons/ri";
-import EditModal from "./ModalEdit";
+import ModalEdit from "./ModalEdit";
 import { BsFillPinAngleFill } from "react-icons/bs";
 import style from "./static/styles";
 
 const Todo = (props) => {
   const [todo, setTodo] = useState(props.todo);
+
+  const handleChange = (updatedTodo) => {
+    setTodo(updatedTodo);
+    props.onChange(updatedTodo);
+  };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -19,15 +24,16 @@ const Todo = (props) => {
           <BsFillPinAngleFill size="40px" />
         </div>
         <Card.Body>
-          <Card.Title>{todo.title} </Card.Title>
-          <Card.Text>{todo.description}</Card.Text>
+          <Card.Title>{todo.TodoTitle} </Card.Title>
+          <Card.Text>{todo.TodoDescription}</Card.Text>
         </Card.Body>
         <Card.Footer>
+          <span>{todo.DueDate}</span>
           <Button
             style={style.deleteButton}
             className="float-end"
             variant="light"
-            onClick={() => props.onRemove(todo.id)}
+            onClick={() => props.onRemove(todo.TodoId)}
           >
             <RiDeleteBin6Fill />
           </Button>
@@ -41,12 +47,14 @@ const Todo = (props) => {
           </Button>
         </Card.Footer>
       </Card>
-      <EditModal
+
+      <ModalEdit
+        type={"Edit"}
         show={show}
         onHide={handleClose}
         todo={todo}
-        setTodo={setTodo}
-      ></EditModal>
+        onChange={handleChange}
+      ></ModalEdit>
     </>
   );
 };

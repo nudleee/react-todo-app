@@ -3,30 +3,29 @@ import { useState } from "react/cjs/react.development";
 
 const ModalAdd = (props) => {
   const [newTodo, setNewTodo] = useState({
-    id: null,
-    title: "",
-    description: "",
-    priority: null,
+    TodoTitle: "",
+    TodoDescription: "",
+    DueDate: null,
   });
-  const handleTitleChange = ({ target }) => {
-    setNewTodo((prev) => ({ ...prev, title: target.value }));
+  const handleChange = ({ target }) => {
+    const value = target.value;
+    setNewTodo((prev) => ({
+      ...prev,
+      [target.name]: value,
+    }));
   };
-  const handleDescriptionChange = ({ target }) => {
-    setNewTodo((prev) => ({ ...prev, description: target.value }));
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!newTodo.title) {
+    if (!newTodo.TodoTitle || !newTodo.DueDate) {
       props.onHide();
       return;
     }
     props.addTodo(newTodo);
-    setNewTodo({ title: "", description: "" });
+    setNewTodo({ TodoTitle: "", TodoDescription: "" });
   };
 
-  const todoTitle = "Enter a todo name";
-  const todoDescription = "Enter the description";
+  const titlePlaceholder = "Enter a todo name";
+  const descriptionPlaceholder = "Enter the description";
   return (
     <>
       <Modal show={props.show} onHide={props.onHide}>
@@ -35,21 +34,30 @@ const ModalAdd = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>Title:</Form.Label>
+            <Form.Label htmlFor="title">Title:</Form.Label>
             <Form.Control
-              name="title"
+              id="title"
+              name="TodoTitle"
               type="text"
-              value={newTodo.title}
-              placeholder={todoTitle}
-              onChange={handleTitleChange}
+              value={newTodo.TodoTitle}
+              placeholder={titlePlaceholder}
+              onChange={handleChange}
             />
-            <Form.Label>Description:</Form.Label>
+            <Form.Label htmlFor="description">Description:</Form.Label>
             <Form.Control
-              name="description"
+              id="description"
+              name="TodoDescription"
               type="text"
-              value={newTodo.description}
-              placeholder={todoDescription}
-              onChange={handleDescriptionChange}
+              value={newTodo.TodoDescription}
+              placeholder={descriptionPlaceholder}
+              onChange={handleChange}
+            />
+            <Form.Label htmlFor="due-date">Due date:</Form.Label>
+            <Form.Control
+              id="due-date"
+              name="DueDate"
+              type="date"
+              onChange={handleChange}
             />
           </Form>
         </Modal.Body>
