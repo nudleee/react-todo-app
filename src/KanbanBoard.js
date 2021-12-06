@@ -6,16 +6,26 @@ import API from "./API";
 
 const KanbanBoard = () => {
   const [columns, setColumns] = useState([]);
+  const [somethingChanged, setSomethinChanged] = useState(true);
+
+  const handleChange = () => {
+    setSomethinChanged(true);
+  };
 
   useEffect(() => {
-    API.get("columns")
-      .then((response) => {
-        setColumns(response.data);
-      })
-      .catch((err) => {
-        console.log("Error: ", err);
-      });
-  }, []);
+    if (somethingChanged) {
+      API.get("columns")
+        .then((response) => {
+          setColumns(response.data);
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        })
+        .finally(() => {
+          setSomethinChanged(false);
+        });
+    }
+  }, [somethingChanged]);
 
   return (
     <>
@@ -24,7 +34,12 @@ const KanbanBoard = () => {
       </div>
       <CardGroup>
         {columns.map((column) => (
-          <Column key={column.ColumnId} column={column} />
+          <Column
+            key={column.ColumnId}
+            column={column}
+            todos={column.Todos}
+            onChange={handleChange}
+          />
         ))}
       </CardGroup>
     </>

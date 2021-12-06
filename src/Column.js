@@ -7,7 +7,8 @@ import ModalInput from "./ModalAdd";
 import { GrFormAdd } from "react-icons/gr";
 
 const Column = (props) => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(props.todos);
+  const [columnId] = useState(props.column.ColumnId);
   const handleSubmit = (newTodo) => {
     API.post("todos", {
       TodoTitle: newTodo.TodoTitle,
@@ -37,7 +38,13 @@ const Column = (props) => {
   const handleChange = (updatedTodo) => {
     API.put("todos", updatedTodo)
       .then(() => {
-        window.location.reload(false);
+        if (updatedTodo.ColumnId !== props.column.ColumnId) {
+          const newTodos = todos.filter(
+            (todo) => todo.TodoId !== updatedTodo.TodoId
+          );
+          setTodos(newTodos);
+          props.onChange();
+        }
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -48,17 +55,15 @@ const Column = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const colId = props.column.ColumnId;
-
   useEffect(() => {
-    API.get(`columns/${colId}`)
+    API.get(`columns/${columnId}`)
       .then((response) => {
         setTodos(response.data.Todos);
       })
       .catch((err) => {
         console.log("Error: ", err);
       });
-  }, [colId]);
+  }, [props.todos, columnId]);
 
   return (
     <>
