@@ -9,7 +9,9 @@ Mindkettőhöz szükséges azonban a [Node.js](https://nodejs.org/en/).
 
 A fájlok letöltése és kicsomagolása után nyissunk egy parancssort és navigáljunk a gyökérmappába. 
 A következő parancsokat szükséges kiadni az itt feltüntetett sorrendben:
+
     #### `npm i all` 
+
     #### `npm start`
 
 Ezek után már használhatjuk is az alkalmazást a [http://localhost:3000](http://localhost:3000) megnyitásával.
@@ -28,9 +30,13 @@ Teendők felvétele, módosítása és törlése, amit végső soron tenni tudun
 ### Felépítés
 
 Az alkalmazásban található fontosabb React komponensek a következők:
+
   `Kanbanboard`, ami lényegében az egész böngésző felületét magába foglalja
+
   `Column`, melyből összesen 4 van Todo, In progress, Testing, Done fejlécekkel, ez tartalmazza a Teendőinket
+
   `Todo`, a Teendőket reprezentáló komponens
+
   `ModalAdd` és `ModalEdit`, melyeken keresztül Teendőket tununk létrehozni vagy szerkeszteni
 
 A hálózati kommunikációhoz [axios-t](https://github.com/axios/axios) használtam, mely segítségével egyszerűen és átláthatóan
