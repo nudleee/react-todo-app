@@ -10,9 +10,9 @@ Mindkettőhöz szükséges azonban a [Node.js](https://nodejs.org/en/).
 A fájlok letöltése és kicsomagolása után nyissunk egy parancssort és navigáljunk a gyökérmappába. 
 A következő parancsokat szükséges kiadni az itt feltüntetett sorrendben:
 
-    #### `npm i all` 
+    `npm i all` 
 
-    #### `npm start`
+    `npm start`
 
 Ezek után már használhatjuk is az alkalmazást a [http://localhost:3000](http://localhost:3000) megnyitásával.
 
