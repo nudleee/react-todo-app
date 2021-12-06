@@ -18,8 +18,7 @@ Ezek után már használhatjuk is az alkalmazást a [http://localhost:3000](http
 
 ### App
 
-A fenti lépések megtétele előtt meg kell szerezni a [backend](https://github.com/nudleee/rest-api) forráskódját, majd
-végezzük el Demo pontban írt lépéseket.
+A fenti lépések megtétele előtt meg kell szerezni a [backend](https://github.com/nudleee/rest-api) forráskódját is.
 
 ## Az alkalmazásról 
 
