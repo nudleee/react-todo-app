@@ -1,4 +1,18 @@
-# Getting Started with Create React App
+# Témalaboratórium
+
+## Elindítás
+
+Az alkalmazásnak 2 változata van: backend nélküli és backend-del rendelkező. Az előzőt a `demo` tag alatt, míg utóbbit az `app` tag alatt találod. 
+
+### Demo
+
+A fájlok letöltése után csomagoljuk 
+
+### App
+
+## Felépítés
+
+## Linkek
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
