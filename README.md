@@ -45,6 +45,6 @@ tudtam dolgozni.
 Az alkalmazásban kezdetleges Routing is szerepel.
 
 ## Linkek
-A [React-ról](https://hu.reactjs.org/docs/getting-started.html)
+A [React tutorial](https://hu.reactjs.org/docs/getting-started.html)
 
 React [Codeacademy gyakorlás](https://www.codecademy.com/learn/react-101)
