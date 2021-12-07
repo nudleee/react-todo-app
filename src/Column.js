@@ -29,11 +29,14 @@ const Column = (props) => {
       });
   };
   const handleRemove = (targetID) => {
-    API.delete(`todos/${targetID}`).catch((err) => {
-      console.log("Error: ", err);
-    });
-    const newTodos = todos.filter((todo) => todo.TodoId !== targetID);
-    setTodos(newTodos);
+    API.delete(`todos/${targetID}`)
+      .then(() => {
+        const newTodos = todos.filter((todo) => todo.TodoId !== targetID);
+        setTodos(newTodos);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
   };
   const handleChange = (updatedTodo) => {
     API.put("todos", updatedTodo)
