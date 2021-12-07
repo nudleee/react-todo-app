@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# Témalaboratórium
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Elindítás
 
-## Available Scripts
+Az alkalmazásnak 2 változata van: backend nélküli és backend-del rendelkező. Az előzőt a `demo` tag alatt, míg utóbbit az `app` tag alatt található. 
+Mindkettőhöz szükséges azonban a [Node.js](https://nodejs.org/en/). 
 
-In the project directory, you can run:
+### Demo
 
-### `npm start`
+A fájlok letöltése és kicsomagolása után nyissunk egy parancssort és navigáljunk a gyökérmappába. 
+A következő parancsokat szükséges kiadni az itt feltüntetett sorrendben:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm i all` 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`npm start`
 
-### `npm test`
+Ezek után már használhatjuk is az alkalmazást a [http://localhost:3000](http://localhost:3000) megnyitásával.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### App
 
-### `npm run build`
+A fenti lépések megtétele előtt meg kell szerezni a [backend](https://github.com/nudleee/todo-api) forráskódját is.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Az alkalmazásról 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Funkcionalitás
+Az alkamazás egy [Kanban board](https://en.wikipedia.org/wiki/Kanban_board) megvalósítása. 
+Teendők felvétele, módosítása és törlése, amit végső soron tenni tudunk.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Felépítés
 
-### `npm run eject`
+Az alkalmazásban található fontosabb React komponensek a következők:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  `Kanbanboard`, ami lényegében az egész böngésző felületét magába foglalja
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  `Column`, melyből összesen 4 van Todo, In progress, Testing, Done fejlécekkel, ez tartalmazza a Teendőinket
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  `Todo`, a Teendőket reprezentáló komponens
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  `ModalAdd` és `ModalEdit`, melyeken keresztül Teendőket tununk létrehozni vagy szerkeszteni
 
-## Learn More
+A hálózati kommunikációhoz [axios-t](https://github.com/axios/axios) használtam, mely segítségével egyszerűen és átláthatóan
+tudtam dolgozni. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Az alkalmazásban kezdetleges Routing is szerepel.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Linkek
+A [React tutorial](https://hu.reactjs.org/docs/getting-started.html)
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React [Codeacademy gyakorlás](https://www.codecademy.com/learn/react-101)
