@@ -4,7 +4,7 @@ const centered = {
 };
 
 const addTodoButton = {
-  background: "white",
+  background: "#A3423C",
   border: "1px solid black",
 };
 
@@ -27,21 +27,34 @@ const pin = {
 };
 
 const todoCard = {
-  background: "#f5bf42 ",
+  background: "#DE834D   ",
   marginBottom: 10,
   borderWidth: 2,
 };
 
 const deleteButton = {
   marginRight: 5,
-  background: "#f59e42",
+  background: "#A3423C",
   border: "2px solid black",
 };
 
 const editButton = {
   marginRight: 5,
-  background: "#f59e42",
+  background: "#A3423C",
   border: "2px solid black",
+};
+
+const arrowButton = {
+  background: "#A3423C",
+  border: "1px solid black",
+};
+
+const buttonAdd = {
+  background: "#A3423C",
+};
+const errorMsg = {
+  color: "#db2269",
+  size: 10,
 };
 
 const styleSheet = {
@@ -53,5 +66,8 @@ const styleSheet = {
   todoCard,
   deleteButton,
   editButton,
+  arrowButton,
+  buttonAdd,
+  errorMsg,
 };
 export default styleSheet;

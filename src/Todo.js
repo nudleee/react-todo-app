@@ -1,6 +1,8 @@
 import { useState } from "react/cjs/react.development";
+import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { RiDeleteBin6Fill, RiEditFill } from "react-icons/ri";
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import ModalEdit from "./ModalEdit";
 import { BsFillPinAngleFill } from "react-icons/bs";
 import style from "./static/styles";
@@ -13,6 +15,17 @@ const Todo = (props) => {
     props.onChange(updatedTodo);
   };
 
+  const handleArrowUp = () => {
+    if (todo.Index !== 1) {
+      props.onIndexChange(todo, -1);
+    }
+  };
+  const handleArrowDown = () => {
+    if (todo.Index < props.size && props.size !== 1) {
+      props.onIndexChange(todo, 1);
+    }
+  };
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,6 +33,9 @@ const Todo = (props) => {
   return (
     <>
       <Card border="dark" style={style.todoCard}>
+        <Button style={style.arrowButton} onClick={handleArrowUp}>
+          <AiOutlineArrowUp />
+        </Button>
         <div style={style.pin}>
           <BsFillPinAngleFill size="40px" />
         </div>
@@ -46,6 +62,9 @@ const Todo = (props) => {
             <RiEditFill />
           </Button>
         </Card.Footer>
+        <Button style={style.arrowButton} onClick={handleArrowDown}>
+          <AiOutlineArrowDown />
+        </Button>
       </Card>
 
       <ModalEdit

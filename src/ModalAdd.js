@@ -1,5 +1,7 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState } from "react/cjs/react.development";
+import React from "react";
+import style from "./static/styles";
 
 const ModalAdd = (props) => {
   const [newTodo, setNewTodo] = useState({
@@ -17,7 +19,7 @@ const ModalAdd = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!newTodo.TodoTitle || !newTodo.DueDate) {
-      props.onHide();
+      alert("Title and DueDate fields are required!");
       return;
     }
     props.addTodo(newTodo);
@@ -28,8 +30,8 @@ const ModalAdd = (props) => {
   const descriptionPlaceholder = "Enter the description";
   return (
     <>
-      <Modal show={props.show} onHide={props.onHide}>
-        <Modal.Header closeButton>
+      <Modal show={props.show}>
+        <Modal.Header closeButton onHide={props.onHide}>
           <Modal.Title>Add todo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -62,7 +64,12 @@ const ModalAdd = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            style={style.buttonAdd}
+            type="submit"
+            onClick={handleSubmit}
+          >
             Add todo
           </Button>
         </Modal.Footer>

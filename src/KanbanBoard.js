@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react/cjs/react.development";
+import React from "react";
 import Column from "./Column";
 import CardGroup from "react-bootstrap/CardGroup";
 import style from "./static/styles";
@@ -37,6 +38,7 @@ const KanbanBoard = () => {
           <Column
             key={column.ColumnId}
             column={column}
+            columns={columns}
             todos={column.Todos}
             onChange={handleChange}
           />

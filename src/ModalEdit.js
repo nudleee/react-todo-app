@@ -2,6 +2,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react/cjs/react.development";
+import style from "./static/styles";
+import React from "react";
 
 const ModalEdit = (props) => {
   const original = props.todo;
@@ -24,6 +26,7 @@ const ModalEdit = (props) => {
       TodoTitle: todo.TodoTitle,
       DueDate: todo.DueDate,
       TodoDescription: todo.TodoDescription,
+      Index: todo.Index,
       ColumnId: todo.ColumnId,
     };
     props.onChange(updatedTodo);
@@ -36,6 +39,7 @@ const ModalEdit = (props) => {
       TodoTitle: original.TodoTitle,
       DueDate: original.DueDate,
       TodoDescription: original.TodoDescription,
+      Index: original.Index,
       ColumnId: original.ColumnId,
     }));
     props.onHide();
@@ -96,7 +100,12 @@ const ModalEdit = (props) => {
           <Button variant="secondary" onClick={handleHide}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            style={style.buttonAdd}
+            type="submit"
+            onClick={handleSubmit}
+          >
             Save
           </Button>
         </Modal.Footer>
