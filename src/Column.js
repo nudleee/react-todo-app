@@ -22,7 +22,9 @@ const Column = (props) => {
       .then((response) => {
         const nTodo = response.data;
         const newTodos = todos?.length > 0 ? [...todos, nTodo] : [nTodo];
+
         setTodos(newTodos);
+        props.onChange();
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -36,7 +38,11 @@ const Column = (props) => {
       .then((response) => {
         const dTodo = response.data;
         const newTodos = todos.filter((todo) => todo.TodoId !== dTodo.TodoId);
-        setIndexes(newTodos, dTodo.Index);
+
+        if (newTodos.length != 0) setIndexes(newTodos, dTodo.Index);
+
+        setTodos(newTodos);
+        refresh();
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -46,21 +52,16 @@ const Column = (props) => {
     const index = clickedTodo.Index;
     const newIndex = clickedTodo.Index + diff;
     clickedTodo.Index = newIndex;
-    API.put("todos", clickedTodo)
-      .then(() => {
-        let todo = todos.find(
-          (todo) =>
-            todo.Index === clickedTodo.Index &&
-            todo.TodoId !== clickedTodo.TodoId
-        );
-        todo.Index = index;
-        API.put("todos", todo)
-          .then(() => {
-            props.onChange();
-          })
-          .catch((err) => {
-            console.log("Error: ", err);
-          });
+
+    let changedTodo = todos.find((todo) => todo.Index == newIndex);
+    changedTodo.Index = index;
+
+    let updatedTodos = [clickedTodo, changedTodo];
+
+    API.put("columns/todos", updatedTodos)
+      .then((response) => {
+        setTodos(response.data);
+        refresh();
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -71,8 +72,14 @@ const Column = (props) => {
       handleTodoMovedToAnotherColumn(updatedTodo);
     } else {
       API.put("todos", updatedTodo)
-        .then(() => {
-          props.onChange();
+        .then((response) => {
+          let updated = response.data;
+          const newTodos = todos.filter(
+            (todo) => todo.TodoId !== updated.TodoId
+          );
+          newTodos.push(updated);
+          setTodos(newTodos);
+          refresh();
         })
         .catch((err) => {
           console.log("Error: ", err);
@@ -95,32 +102,33 @@ const Column = (props) => {
         const newTodos = todos?.filter(
           (todo) => todo.TodoId !== updatedTodo.TodoId
         );
-        setIndexes(newTodos, index);
+        if (newTodos.length != 0) setIndexes(newTodos, index);
+        props.onChange();
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  };
+  const setIndexes = (updatedTodos, index) => {
+    updatedTodos.forEach((todo) => {
+      if (todo.Index > index) {
+        todo.Index--;
+      }
+    });
+    API.put("columns/todos", updatedTodos)
+      .then((response) => {
+        setTodos(response.data);
       })
       .catch((err) => {
         console.log("Error: ", err);
       });
   };
 
-  const setIndexes = (newTodos, index) => {
-    let _responses = [];
-    newTodos?.forEach((todo) => {
-      if (todo.Index > index) {
-        todo.Index--;
-        API.put("todos", todo).then((res) => {
-          _responses.push(res.data);
-        });
-      } else _responses.push(todo);
-    });
-    setTodos(_responses);
-    props.onChange();
-  };
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
+  const refresh = () => {
     API.get(`columns/${columnId}`)
       .then((response) => {
         const _todos = response.data.Todos;
@@ -132,6 +140,10 @@ const Column = (props) => {
       .catch((err) => {
         console.log("Error: ", err);
       });
+  };
+
+  useEffect(() => {
+    refresh();
   }, [props.todos, columnId]);
 
   return (
@@ -143,7 +155,9 @@ const Column = (props) => {
           </Card.Title>
           {todos?.map((todo) => (
             <Todo
-              key={todo.TodoId}
+              key={
+                todo.TodoId + todo.Index + todo.TodoTitle + Todo.TodoDescription
+              }
               todo={todo}
               size={todos?.length}
               onRemove={handleRemove}

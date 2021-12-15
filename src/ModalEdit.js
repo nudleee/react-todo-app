@@ -32,7 +32,6 @@ const ModalEdit = (props) => {
     props.onChange(updatedTodo);
     props.onHide();
   };
-
   const handleHide = () => {
     setTodo((prev) => ({
       ...prev,

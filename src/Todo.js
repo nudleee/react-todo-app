@@ -11,8 +11,8 @@ const Todo = (props) => {
   const [todo, setTodo] = useState(props.todo);
 
   const handleChange = (updatedTodo) => {
-    setTodo(updatedTodo);
     props.onChange(updatedTodo);
+    setTodo(updatedTodo);
   };
 
   const handleArrowUp = () => {
@@ -25,6 +25,7 @@ const Todo = (props) => {
       props.onIndexChange(todo, 1);
     }
   };
+
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
