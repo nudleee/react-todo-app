@@ -156,7 +156,11 @@ const Column = (props) => {
           {todos?.map((todo) => (
             <Todo
               key={
-                todo.TodoId + todo.Index + todo.TodoTitle + Todo.TodoDescription
+                todo.TodoId +
+                todo.Index +
+                todo.TodoTitle +
+                Todo.TodoDescription +
+                Todo.DueDate
               }
               todo={todo}
               size={todos?.length}
